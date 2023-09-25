@@ -11,15 +11,15 @@ export function Comment() {
         {data.map((commentData) => (
           <div key={commentData.currentUser.username} className="comment">
             {commentData.comments.map((comment) => (
-              <div key={comment.id} className="comment-item">
+              <div key={comment.id} className="comment-item flex">
                 <div className="score">
                   <img src={plus} alt="plus-icon" />
                   <p>{comment.score}</p>
-                  <img src={minus} alt="minus-icon" />
+                  <img className="minus-icon" src={minus} alt="minus-icon" />
                 </div>
                 <div className="content">
                   <div className="flex space-between">
-                    <div>
+                    <div className="flex top-contents">
                       <img
                         src={comment.user.image.png}
                         alt={comment.user.username}
@@ -27,8 +27,8 @@ export function Comment() {
                       <h2>{comment.user.username}</h2>
                       <p>{comment.createdAt}</p>
                     </div>
-                    <div className="flex">
-                      <img src={reply} alt="reply-icon" />
+                    <div className="flex reply">
+                      <img className="reply-icon" src={reply} alt="reply-icon" />
                       <p>Reply</p>
                     </div>
                   </div>
@@ -39,20 +39,20 @@ export function Comment() {
             {commentData.comments.map((replies) => (
               <div key={replies.id}>
                 {replies.replies.map((rp) => (
-                  <div key={rp.id}>
+                  <div key={rp.id} className="flex comment-item">
                     <div className="score">
                       <img src={plus} alt="plus-icon" />
                       <p>{rp.score}</p>
-                      <img src={minus} alt="minus-icon" />
+                      <img className="minus-icon" src={minus} alt="minus-icon" />
                     </div>
                     <div className="content">
                       <div className="flex space-between">
-                        <div>
+                        <div className="flex top-contents">
                           <img src={rp.user.image.png} alt={rp.user.username} />
                           <h2>{rp.user.username}</h2>
                           <p>{rp.createdAt}</p>
                         </div>
-                        <div className="flex">
+                        <div className="flex reply">
                           <img src={reply} alt="reply-icon" />
                           <p>Reply</p>
                         </div>
