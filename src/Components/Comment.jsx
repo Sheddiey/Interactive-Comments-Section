@@ -36,33 +36,30 @@ export function Comment() {
                 </div>
               </div>
             ))}
-            {commentData.comments.map((reply) => (
-              <div key={reply.id}>
-                {reply.replies.map(rp => (
-                    <div key={rp.id}>
+            {commentData.comments.map((replies) => (
+              <div key={replies.id}>
+                {replies.replies.map((rp) => (
+                  <div key={rp.id}>
                     <div className="score">
-                    <img src={plus} alt="plus-icon" />
-                    <p>{rp.score}</p>
-                    <img src={minus} alt="minus-icon" />
-                  </div>
-                  <div className="content">
-                    <div className="flex space-between">
-                      <div>
-                        <img
-                          src={rp.user.image.png}
-                          alt={rp.user.username}
-                        />
-                        <h2>{rp.user.username}</h2>
-                        <p>{rp.createdAt}</p>
-                      </div>
-                      <div className="flex">
-                        <img src={reply} alt="reply-icon" />
-                        <p>Reply</p>
-                      </div>
+                      <img src={plus} alt="plus-icon" />
+                      <p>{rp.score}</p>
+                      <img src={minus} alt="minus-icon" />
                     </div>
-                    <div className="content-text">{rp.content}</div>
-                  </div>
+                    <div className="content">
+                      <div className="flex space-between">
+                        <div>
+                          <img src={rp.user.image.png} alt={rp.user.username} />
+                          <h2>{rp.user.username}</h2>
+                          <p>{rp.createdAt}</p>
+                        </div>
+                        <div className="flex">
+                          <img src={reply} alt="reply-icon" />
+                          <p>Reply</p>
+                        </div>
+                      </div>
+                      <div className="content-text">{rp.content}</div>
                     </div>
+                  </div>
                 ))}
               </div>
             ))}

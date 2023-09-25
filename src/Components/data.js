@@ -1,6 +1,7 @@
 import juliusomo from './images/avatars/image-juliusomo.webp'
 import amyrobson from './images/avatars/image-amyrobson.webp'
 import maxblagunWebp from './images/avatars/image-maxblagun.webp'
+import ramsesmiron from './images/avatars/image-ramsesmiron.webp'
 
 export const data = [
   {
@@ -50,7 +51,7 @@ export const data = [
             replyingTo: "maxblagun",
             user: {
               image: {
-                png: "./images/avatars/image-ramsesmiron.png",
+                png: ramsesmiron,
                 webp: "./images/avatars/image-ramsesmiron.webp",
               },
               username: "ramsesmiron",
@@ -65,7 +66,7 @@ export const data = [
             replyingTo: "ramsesmiron",
             user: {
               image: {
-                png: "./images/avatars/image-juliusomo.png",
+                png: juliusomo,
                 webp: "./images/avatars/image-juliusomo.webp",
               },
               username: "juliusomo",
