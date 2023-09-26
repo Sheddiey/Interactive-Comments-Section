@@ -105,9 +105,28 @@ body {
     .content-text {
         max-width: 59ch;
     }
+    .flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    .space-between {
+        display: flex;
+        justify-content: space-between;
+    }
+    .delete-btn{
+        width: 400px;
+        height: 252px;
+    }
+    .buttons > * {
+        padding: 12px;
+    }
+
 }
 .comment-item {
     background-color: var(--white);
+    margin-block: 20px;
 }
 .content-text {
     color: var(--grayish-blue);
@@ -124,9 +143,83 @@ body {
     border-radius: 5px;
     padding: 10px;
 }
+@media (max-width: 47em) {
+    body {
+        margin: 20px;
+    }
+    .top-contents {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .comment-item {
+        display: grid;
+        width: 343px;
+        height: 280px;
+        padding: 15px;
+    }
+    .score {
+        flex-direction: row;
+        height: 40px;
+        width: 100px;
+        order: 1;
+        margin-block-start: 20px;
+    } 
+   .content {
+    position: relative;
+   }
+    .reply {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: absolute;
+        right: 0;
+        bottom: -50px;
+    }
+    .delete-btn {
+        height: 224px;
+        width: 343px; 
+    }
+    .buttons > *{
+        height: 48px;
+        width: 138px;
+    } 
+}
+.delete-btn {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--white);
+}
+.buttons>*{
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--white);
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+.btn-1 {
+    background-color: var(--grayish-blue);
+}
+.btn-2 {
+    background-color: var(--soft-red);
+}
+.delete-btn h2 {
+    font-size: 20px;
+    font-weight: var(--fw-medium);
+    color: var(--dark-blue);
+}
+.delete-btn p {
+    color: var(--grayish-blue);
+}
 .score img {
     width: 10.07px;
     height: 10px;
+    cursor: pointer;
 }
 .score .minus-icon {
     height: 2.5px;
@@ -158,16 +251,4 @@ body {
 .top-contents p{
     color: var(--grayish-blue);
     margin-block: 15px;
-}
-
-/* utility classes */
-.flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-.space-between {
-    display: flex;
-    justify-content: space-between;
 }
