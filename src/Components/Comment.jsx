@@ -37,9 +37,9 @@ export function Comment() {
               </div>
             ))}
             {commentData.comments.map((replies) => (
-              <div key={replies.id}>
+              <div key={replies.id} className="comment-section">
                 {replies.replies.map((rp) => (
-                  <div key={rp.id} className="flex comment-item">
+                  <div key={rp.id} className="flex reply-section">
                     <div className="score">
                       <img src={plus} alt="plus-icon" />
                       <p>{rp.score}</p>
@@ -57,7 +57,7 @@ export function Comment() {
                           <p>Reply</p>
                         </div>
                       </div>
-                      <div className="content-text">{rp.content}</div>
+                      <div className="content-text content-text-reply"><p>{rp.content}</p></div>
                     </div>
                   </div>
                 ))}

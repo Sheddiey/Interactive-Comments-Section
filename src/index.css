@@ -102,6 +102,10 @@ body {
         width: 730px;
         height: 167px;
     }
+    .reply-section {
+        width: 642px;
+        height: 167px;
+    }
     .content-text {
         max-width: 59ch;
     }
@@ -120,11 +124,24 @@ body {
         height: 252px;
     }
     .buttons > * {
-        padding: 12px;
+       width: 161px;
+       height: 48px;
     }
+    .content-text-reply  p{
+        max-width: 50ch;
+    }
+}
 
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    float: right;
 }
 .comment-item {
+    background-color: var(--white);
+    margin-block: 20px;
+}
+.reply-section {
     background-color: var(--white);
     margin-block: 20px;
 }
@@ -185,12 +202,17 @@ body {
         width: 138px;
     } 
 }
+
+
+
+
 .delete-btn {
     display: grid;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 30px;
     background-color: var(--white);
+    border-radius: 5px;
 }
 .buttons>*{
     border: 0;
