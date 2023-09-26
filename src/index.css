@@ -97,15 +97,19 @@ body {
     align-items: center;
     background-color: hsl(0, 0%, 95%);
 }
+
 @media (min-width: 47em) {
     .comment-item {
         width: 730px;
         height: 167px;
+        border-radius: 5px;
     }
     .reply-section {
         width: 642px;
         height: 167px;
+        border-radius: 5px;
     }
+    
     .content-text {
         max-width: 59ch;
     }
@@ -132,11 +136,14 @@ body {
     }
 }
 
+
+
 .comment-section {
     display: flex;
     flex-direction: column;
     float: right;
 }
+
 .comment-item {
     background-color: var(--white);
     margin-block: 20px;
@@ -147,6 +154,10 @@ body {
 }
 .content-text {
     color: var(--grayish-blue);
+}
+.content-text span {
+    color: var(--moderate-blue);
+    font-weight: var(--fw-medium);
 }
 
 .score {
@@ -169,7 +180,8 @@ body {
         align-items: center;
         gap: 10px;
     }
-    .comment-item {
+    .comment-item,
+    .reply-section {
         display: grid;
         width: 343px;
         height: 280px;
@@ -186,9 +198,6 @@ body {
     position: relative;
    }
     .reply {
-        display: flex;
-        align-items: center;
-        gap: 10px;
         position: absolute;
         right: 0;
         bottom: -50px;
@@ -202,9 +211,44 @@ body {
         width: 138px;
     } 
 }
+.input-field {
+    clear: both;
+    display: flex;
+    justify-content: space-evenly;
+    width: 730px;
+    height: 144px;
+    border-radius: 8px;
+    background-color: white;
+    padding: 24px;
+}
+.input-field input {
+    width: 506px;
+    height: 96px;
+    border-radius: 8px;
+    border: 1px solid var(--light-gray);
+}
 
+.input-field input:focus {
+    outline: 1px solid var(--moderate-blue);
+}
+.input-field button {
+    height: 48px;
+    width: 104px;
+    border: 0;
+    background-color: var(--moderate-blue);
+    cursor: pointer;
+    color: var(--white);
+    border-radius: 8px;
+}
+.input-field button:hover,
+.input-field button:focus-visible {
+    background-color: var(--light-grayish-blue);
+}
 
-
+.vl {
+    width: 20px;
+    background-color: red;
+}
 
 .delete-btn {
     display: grid;
@@ -213,8 +257,9 @@ body {
     padding: 30px;
     background-color: var(--white);
     border-radius: 5px;
+    border-radius: 8px;
 }
-.buttons>*{
+.buttons > * {
     border: 0;
     border-radius: 8px;
     cursor: pointer;
@@ -243,6 +288,11 @@ body {
     height: 10px;
     cursor: pointer;
 }
+.score img:hover {
+    color: var(--dark-blue);
+    outline: 2px solid red;
+    fill: red;
+}
 .score .minus-icon {
     height: 2.5px;
 }
@@ -260,9 +310,13 @@ body {
     color: var(--moderate-blue);
     font-weight: var(--fw-medium);
     cursor: pointer;
+    display: flex;
+    gap: 5px;
+    align-items: center;
 }
 
-.top-contents img {
+.top-contents img,
+.input-field img {
     height: 32px;
     width: 32px;
 }
