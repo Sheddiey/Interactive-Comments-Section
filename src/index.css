@@ -213,14 +213,17 @@ body {
 }
 .input-field,
 .reply-field {
-    display: flex;
-    justify-content: space-evenly;
     border-radius: 8px;
     background-color: white;
     padding: 24px;
 }
 
 @media (min-width: 47em) {
+    .input-field,
+    .reply-field {
+        display: flex;
+        justify-content: space-evenly;
+    }
     .input-field textarea {
         width: 506px;
         height: 96px;
@@ -239,8 +242,18 @@ body {
         width: 642px;
         height: 144px;
     }
+    .send-btn {
+        height: 48px;
+        width: 104px;
+    }
+
 }
 @media (max-width: 47em) {
+    .input-field,
+    .reply-field {
+        display: grid;
+        justify-content: space-evenly;
+    }
     .input-field textarea {
         width: 311px;
         height: 96px;
@@ -259,6 +272,37 @@ body {
         width: 325px;
         height: 189px;
     }
+    .input-field,
+    .reply-field {
+        display: grid;
+        grid-template-areas: 'textarea textarea' 'img button';
+    }
+    .input-field img,
+    .reply-field img { 
+        grid-area: img;
+        margin-top: 15px; 
+        left: 5px;
+    }
+   
+    .input-field textarea,
+    .reply-field textarea {
+        grid-area: textarea;
+    }
+    .input-field button,
+    .reply-field button {
+        grid-area: button;
+        justify-self: right;
+        margin-top: 15px;
+        right: 5px;
+    }
+    .input-field textarea,
+    .reply-field textarea {
+        order: -1;
+    }
+    .send-btn {
+        height: 40px;
+        width: 80px;
+    }
 }
 .input-field textarea,
 .reply-field textarea {
@@ -275,14 +319,13 @@ body {
     outline: 1px solid var(--moderate-blue);
 }
 .send-btn {
-    height: 48px;
-    width: 104px;
     border: 0;
     background-color: var(--moderate-blue);
     cursor: pointer;
     color: var(--white);
     border-radius: 8px;
 }
+
 .send-btn:hover,
 .send-btn:focus-visible {
     background-color: var(--light-grayish-blue);
