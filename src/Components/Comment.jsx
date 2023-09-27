@@ -2,9 +2,13 @@ import { data } from "./data";
 import plus from "./images/icon-plus.svg";
 import minus from "./images/icon-minus.svg";
 import reply from "./images/icon-reply.svg";
-import React from "react";
+import deleteIcon from './images/icon-delete.svg'
+import editIcon from './images/icon-edit.svg'
+import React, { useState } from "react";
 
 export function Comment() {
+  const [text, setText] = useState("");
+
   return (
     <>
       <div className="flex-container">
@@ -60,15 +64,29 @@ export function Comment() {
                         <div className="flex top-contents">
                           <img src={rp.user.image.png} alt={rp.user.username} />
                           <h2>{rp.user.username}</h2>
+                          <div className="you">{rp.user.username === 'juliusomo' && 'you'}</div>
                           <p>{rp.createdAt}</p>
                         </div>
                         <div className="reply">
-                          <img src={reply} alt="reply-icon" />
-                          <p>Reply</p>
+                          {rp.user.username !== 'juliusomo' ? (
+                            <>
+                              <img src={reply} alt="reply-icon" />
+                              <p>Reply</p>
+                            </>
+                          ): (
+                            <>
+                              <img src={deleteIcon} alt="delete-icon" />
+                              <p>Delete</p>
+                              <img src={editIcon} alt="edit-icon" />
+                              <p>Edit</p>
+                            </>
+                          )}
                         </div>
                       </div>
                       <div className="content-text content-text-reply">
-                        <p><span>@{rp.replyingTo}</span> {rp.content}</p>
+                        <p>
+                          <span>@{rp.replyingTo}</span> {rp.content}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -83,11 +101,11 @@ export function Comment() {
   );
 }
 
-function AddComment() {
+function AddComment({ text }) {
   return data.map((user) => (
     <div className="input-field">
       <img src={user.currentUser.image.png} alt="juliusomo" />
-      <input placeholder="Add a comment..." />
+      <input value={text} placeholder="Add a comment..." />
       <button className="send-btn">SEND</button>
     </div>
   ));

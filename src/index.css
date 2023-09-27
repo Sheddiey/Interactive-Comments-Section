@@ -299,7 +299,14 @@ body {
 .score p {
     color: var(--moderate-blue);
 }
-
+.you {
+    background-color: var(--moderate-blue);
+    color: var(--white);
+    text-align: center;
+    font-weight: var(--fw-medium);
+    padding: 0px 8px;
+    border-radius: 3px;
+}
 
 /* icons */
 .reply-icon {
