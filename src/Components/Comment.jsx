@@ -12,10 +12,10 @@ export function Comment() {
   const [isdata, updateIsData] = useImmer(data);
   const [isClickedMap, setIsClickedMap] = useState({});
 
-  function handleCurrentUserReplyClick(commentId) {
+  function handleReplyClick(commentId) {
     setIsClickedMap((prevState) => ({
       ...prevState,
-      [commentId] : !prevState[commentId] || false, 
+      [commentId]: !prevState[commentId] || false,
     }));
   }
 
@@ -43,7 +43,7 @@ export function Comment() {
                         <p>{comment.createdAt}</p>
                       </div>
                       <div
-                        onClick={() => handleCurrentUserReplyClick(comment.id)}
+                        onClick={() => handleReplyClick(comment.id)}
                         className="reply"
                       >
                         <img
@@ -57,7 +57,11 @@ export function Comment() {
                     <div className="content-text">{comment.content}</div>
                   </div>
                 </div>
-                <div style={{display: isClickedMap[comment.id] ? 'block' : 'none'}}>
+                <div
+                  style={{
+                    display: isClickedMap[comment.id] ? "block" : "none",
+                  }}
+                >
                   <AddComment />
                 </div>{" "}
               </>
@@ -67,49 +71,64 @@ export function Comment() {
               <div key={replies.id} className="comment-section">
                 <div className="vl"></div>
                 {replies.replies.map((rp) => (
-                  <div key={rp.id} className="flex reply-section">
-                    <div className="score">
-                      <img src={plus} alt="plus-icon" />
-                      <p>{rp.score}</p>
-                      <img
-                        className="minus-icon"
-                        src={minus}
-                        alt="minus-icon"
-                      />
-                    </div>
-                    <div className="content">
-                      <div className="flex space-between">
-                        <div className="flex top-contents">
-                          <img src={rp.user.image.png} alt={rp.user.username} />
-                          <h2>{rp.user.username}</h2>
-                          <div className="you">
-                            {rp.user.username === "juliusomo" && "you"}
+                  <>
+                    <div key={rp.id} className="flex reply-section">
+                      <div className="score">
+                        <img src={plus} alt="plus-icon" />
+                        <p>{rp.score}</p>
+                        <img
+                          className="minus-icon"
+                          src={minus}
+                          alt="minus-icon"
+                        />
+                      </div>
+                      <div className="content">
+                        <div className="flex space-between">
+                          <div className="flex top-contents">
+                            <img
+                              src={rp.user.image.png}
+                              alt={rp.user.username}
+                            />
+                            <h2>{rp.user.username}</h2>
+                            <div className="you">
+                              {rp.user.username === "juliusomo" && "you"}
+                            </div>
+                            <p>{rp.createdAt}</p>
                           </div>
-                          <p>{rp.createdAt}</p>
+                          <div className="reply">
+                            {rp.user.username !== "juliusomo" ? (
+                              <div
+                                className="flex"
+                                onClick={() => handleReplyClick(rp.id)}
+                              >
+                                <img src={reply} alt="reply-icon" />
+                                <p>Reply</p>
+                              </div>
+                            ) : (
+                              <>
+                                <img src={deleteIcon} alt="delete-icon" />
+                                <p>Delete</p>
+                                <img src={editIcon} alt="edit-icon" />
+                                <p>Edit</p>
+                              </>
+                            )}
+                          </div>
                         </div>
-                        <div className="reply">
-                          {rp.user.username !== "juliusomo" ? (
-                            <>
-                              <img src={reply} alt="reply-icon" />
-                              <p>Reply</p>
-                            </>
-                          ) : (
-                            <>
-                              <img src={deleteIcon} alt="delete-icon" />
-                              <p>Delete</p>
-                              <img src={editIcon} alt="edit-icon" />
-                              <p>Edit</p>
-                            </>
-                          )}
+                        <div className="content-text content-text-reply">
+                          <p>
+                            <span>@{rp.replyingTo}</span> {rp.content}
+                          </p>
                         </div>
-                      </div>
-                      <div className="content-text content-text-reply">
-                        <p>
-                          <span>@{rp.replyingTo}</span> {rp.content}
-                        </p>
                       </div>
                     </div>
-                  </div>
+                    <div
+                      style={{
+                        display: isClickedMap[rp.id] ? "block" : "none",
+                      }}
+                    >
+                      <AddReply />
+                    </div>
+                  </>
                 ))}
               </div>
             ))}
@@ -125,7 +144,17 @@ function AddComment({ text }) {
   return data.map((user) => (
     <div className="input-field">
       <img src={user.currentUser.image.png} alt="juliusomo" />
-      <input value={text} placeholder="Add a comment..." />
+      <textarea placeholder="Add comment..." />
+      <button className="send-btn">SEND</button>
+    </div>
+  ));
+}
+
+function AddReply() {
+  return data.map((user) => (
+    <div className="reply-field">
+      <img src={user.currentUser.image.png} alt="juliusomo" />
+      <textarea placeholder="Add reply..." />
       <button className="send-btn">SEND</button>
     </div>
   ));

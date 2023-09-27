@@ -211,27 +211,70 @@ body {
         width: 138px;
     } 
 }
-.input-field {
-    clear: both;
+.input-field,
+.reply-field {
     display: flex;
     justify-content: space-evenly;
-    width: 730px;
-    height: 144px;
     border-radius: 8px;
     background-color: white;
     padding: 24px;
 }
-.input-field input {
-    width: 506px;
-    height: 96px;
+
+@media (min-width: 47em) {
+    .input-field textarea {
+        width: 506px;
+        height: 96px;
+    }
+    .reply-field textarea {
+        width: 418px;
+        height: 96px;
+    }
+    .input-field {
+        clear: both;
+        width: 730px;
+        height: 144px;
+    }
+    .reply-field {
+        float: right;
+        width: 642px;
+        height: 144px;
+    }
+}
+@media (max-width: 47em) {
+    .input-field textarea {
+        width: 311px;
+        height: 96px;
+    }
+    .reply-field textarea {
+        width: 257px;
+        height: 96px;
+    }
+    .input-field {
+        clear: both;
+        width: 343px;
+        height: 189px;
+    }
+    .reply-field {
+        float: right;
+        width: 325px;
+        height: 189px;
+    }
+}
+.input-field textarea,
+.reply-field textarea {
     border-radius: 8px;
-    border: 1px solid var(--light-gray);
+    border: 2px solid var(--light-gray);
+    resize: none;
+    padding: 12px;
 }
 
-.input-field input:focus {
+
+.input-field textarea:focus,
+.reply-field textarea:focus {
+    border: 0;
     outline: 1px solid var(--moderate-blue);
 }
-.input-field button {
+.send-btn {
     height: 48px;
     width: 104px;
     border: 0;
@@ -240,10 +283,12 @@ body {
     color: var(--white);
     border-radius: 8px;
 }
-.input-field button:hover,
-.input-field button:focus-visible {
+.send-btn:hover,
+.send-btn:focus-visible {
     background-color: var(--light-grayish-blue);
 }
+
+
 
 .vl {
     width: 20px;
@@ -323,7 +368,8 @@ body {
 }
 
 .top-contents img,
-.input-field img {
+.input-field img,
+.reply-field img {
     height: 32px;
     width: 32px;
 }
