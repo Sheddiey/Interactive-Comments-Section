@@ -1,6 +1,5 @@
-import { AddComment } from "./Components/Comment";
-import CommentsSection from "./Components/CommentsSection";
-import { Delete } from "./Components/Delete";
+
+import CommentsSection from "./Components/MainCommentsSection";
 
 export default function App() {
   return (
