@@ -13,6 +13,7 @@ export function Comment() {
   const [isdata, updateIsData] = useImmer(data);
   const [isClickedMap, setIsClickedMap] = useState({});
   const [isTextareaVisible, setIsTextareaVisible] = useState({});
+  const [replyingToCommentId, setReplyingToCommentId] = useState(null);
 
   function handleReplyClick(commentId) {
     setIsClickedMap((prevState) => ({
@@ -20,57 +21,47 @@ export function Comment() {
       [commentId]: !prevState[commentId] || false,
     }));
 
-    setIsTextareaVisible((prevState) => ({
-      ...prevState,
-      [commentId]: true,
-    }));
+    setReplyingToCommentId(commentId);
   }
 
-  function handleSendClick(commentId, { text }) {
+  function handleSendClick(commentId) {
+    updateIsData((draft) => {
+      const commentIndex = draft.findIndex((commentData) =>
+        commentData.comments.find((c) => c.id === commentId)
+      );
+  
+      if (commentIndex !== -1) {
+        const newReply = {
+          id: Math.random().toString(36).substring(7),
+          content: text,
+          createdAt: "Just now",
+          score: 0,
+          replyingTo: draft[commentIndex].currentUser.username,
+          user: {
+            image: { png: juliusomoPng, webp: juliusomoPng },
+            username: "juliusomo",
+          },
+        };
+  
+        draft[commentIndex].comments
+          .find((c) => c.id === commentId)
+          .replies.push(newReply);
+      }
+    });
+  
     setText("");
-
-    setIsTextareaVisible((prevState) => ({
+  
+    setIsClickedMap((prevState) => ({
       ...prevState,
       [commentId]: false,
     }));
-    return (
-      <div className="flex reply-section">
-        <div className="score">
-          <img src={plus} alt="plus-icon" />
-          <p>0</p>
-          <img className="minus-icon" src={minus} alt="minus-icon" />
-        </div>
-        <div className="content">
-          <div className="flex space-between">
-            <div className="flex top-contents">
-              <img src={juliusomoPng} alt="juliusomo" />
-              <h2>juliusomo</h2>
-              <div className="you">
-                <h1>you</h1>
-              </div>
-              <p>today</p>
-            </div>
-            <div className="reply">
-              <>
-                <img src={deleteIcon} alt="delete-icon" />
-                <p>Delete</p>
-                <img src={editIcon} alt="edit-icon" />
-                <p>Edit</p>
-              </>
-            </div>
-          </div>
-          <div>
-            <p>{text}</p>
-          </div>
-        </div>
-      </div>
-    );
   }
+  
 
   return (
     <>
       <div className="flex-container">
-        {data.map((commentData) => (
+        {isdata.map((commentData) => (
           <div key={commentData.currentUser.username} className="comment">
             {commentData.comments.map((comment) => (
               <>
@@ -105,16 +96,21 @@ export function Comment() {
                     <div className="content-text">{comment.content}</div>
                   </div>
                 </div>
-                <div
+                {commentData.comments.map((comment) => (
+                  <div
                   style={{
                     display: isClickedMap[comment.id] ? "block" : "none",
                   }}
                 >
-                  <AddComment
+                  {replyingToCommentId === comment.id && (
+                    <AddComment
                     handleSendClick={handleSendClick}
                     setText={setText}
+                    commentId={comment.id}
                   />
-                </div>{" "}
+                  )}
+                </div>
+                ))}{" "}
               </>
             ))}
 
@@ -177,6 +173,7 @@ export function Comment() {
                         display: isClickedMap[rp.id] ? "block" : "none",
                       }}
                     >
+                    <AddedComment />
                       <AddReply />
                     </div>
                   </>
@@ -186,12 +183,18 @@ export function Comment() {
           </div>
         ))}
       </div>
-      <AddComment handleSendClick={handleSendClick} setText={setText} />
+      {isdata.map((commentData) => (
+        <div>
+          {commentData.comments.map((comment) => (
+            <AddComment commentId={comment.id} handleSendClick={handleSendClick} setText={setText} />
+          ))}
+        </div>
+      ))}
     </>
   );
 }
 
-function AddComment({ text, handleSendClick, setText }) {
+function AddComment({ text, handleSendClick, setText, commentId }) {
   return data.map((user) => (
     <div className="input-field">
       <img src={user.currentUser.image.png} alt="juliusomo" />
@@ -200,21 +203,53 @@ function AddComment({ text, handleSendClick, setText }) {
         onChange={(e) => setText(e.target.value)}
         placeholder="Add comment..."
       />
-      <button onClick={() => handleSendClick(comment.id )} className="send-btn">
+      <button onClick={() => handleSendClick(commentId)} className="send-btn">
         SEND
       </button>
     </div>
   ));
 }
-
-function AddReply({ text }) {
+function AddReply({ text, setText }) {
   return data.map((user) => (
     <div className="reply-field">
       <img src={user.currentUser.image.png} alt="juliusomo" />
-      <textarea value={text} placeholder="Add reply..." />
+      <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Add reply..." />
       <button className="send-btn">SEND</button>
     </div>
   ));
 }
 
 function Edit() {}
+
+export function AddedComment({text, setText}) {
+  return (
+    <div className="flex reply-section">
+      <div className="score">
+        <img src={plus} alt="plus-icon" />
+        <p>0</p>
+        <img className="minus-icon" src={minus} alt="minus-icon" />
+      </div>
+      <div className="content">
+        <div className="flex space-between">
+          <div className="flex top-contents">
+            <img src={juliusomoPng} alt="juliusomo" />
+            <h2>juliusomo</h2>
+            <div className="you">you</div>
+            <p>Just now</p>
+          </div>
+          <div className="reply">
+            <>
+              <img src={deleteIcon} alt="delete-icon" />
+              <p>Delete</p>
+              <img src={editIcon} alt="edit-icon" />
+              <p>Edit</p>
+            </>
+          </div>
+        </div>
+        <div className="content-text content-text-reply">
+          <p>{text}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
